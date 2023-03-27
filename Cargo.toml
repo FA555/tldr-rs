@@ -3,7 +3,7 @@ name = "tldr-rs"
 version = "0.1.0"
 edition = "2021"
 authors = ["fa_555 <fa_555@foxmail.com>"]
-# repository = ""
+repository = "https://github.com/FA555/tldr-rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
