@@ -55,7 +55,7 @@ fn real_main() -> Result<()> {
         return Ok(());
     } else if args.item.is_some() {
         match check_localtime() {
-            Ok(_) => {},
+            Ok(_) => {}
             Err(_) => update_localdb()?,
         }
     }
@@ -74,16 +74,14 @@ fn real_main() -> Result<()> {
     }
 
     match args.item {
-        Some(item) => {
-            match print_tldrpage(&item, platform) {
-                Ok(_) => Ok(()),
-                Err(_) => {
-                    println!("This page doesn't exist yet!");
-                    println!("Submit new pages here: https://github.com/tldr-pages/tldr");
-                    Err(Error::new(std::io::ErrorKind::NotFound, "Page not found"))
-                }
+        Some(item) => match print_tldrpage(&item, platform) {
+            Ok(_) => Ok(()),
+            Err(_) => {
+                println!("This page doesn't exist yet!");
+                println!("Submit new pages here: https://github.com/tldr-pages/tldr");
+                Err(Error::new(std::io::ErrorKind::NotFound, "Page not found"))
             }
-        }
+        },
         None => {
             Arguments::command().print_help()?;
             std::process::exit(1);
