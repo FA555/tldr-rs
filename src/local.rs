@@ -75,9 +75,8 @@ pub fn update_localdb() -> Result<()> {
     let mut dir = get_home()?;
     dir.push(TLDR_HOME_DIR);
     match fs::create_dir(&dir) {
-        Ok(_) => (),
-        Err(err) if err.kind() == std::io::ErrorKind::AlreadyExists => (),
-        err => return err,
+        Err(err) if err.kind() != std::io::ErrorKind::AlreadyExists => return Err(err),
+        _ => (),
     };
 
     let mut tmp_path = PathBuf::from(TMP_DIR);
