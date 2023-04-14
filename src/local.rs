@@ -81,6 +81,10 @@ pub fn update_localdb() -> Result<()> {
 
     let mut tmp_path = PathBuf::from(TMP_DIR);
     let tmp_dir = tmp_path.clone();
+    match fs::remove_dir_all(&tmp_dir) {
+        Err(err) if err.kind() != std::io::ErrorKind::NotFound => return Err(err),
+        _ => (),
+    }
     fs::create_dir(&tmp_dir)?;
 
     tmp_path.push(TMP_FILE);
@@ -90,6 +94,7 @@ pub fn update_localdb() -> Result<()> {
     println!("{}", "Successfully downloaded.".bold().green());
 
     println!("{}", "Unzipping...".bold().yellow());
+    fs::remove_dir_all(&dir)?;
     unzip_file(&tmp_path, &dir)?;
     println!("{}", "Done.".bold().green());
 

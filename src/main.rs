@@ -33,7 +33,13 @@ fn print_version() {
 }
 
 fn main() {
-    if let Ok(()) = real_main() {}
+    match real_main() {
+        Ok(_) => {}
+        Err(err) => {
+            println!("{} {err}", "Error:".to_string().red());
+            std::process::exit(1);
+        }
+    }
 }
 
 fn real_main() -> Result<()> {
@@ -46,13 +52,11 @@ fn real_main() -> Result<()> {
     }
 
     if args.clear_cache {
-        clear_localdb()?;
-        return Ok(());
+        return clear_localdb();
     }
 
     if args.update {
-        update_localdb()?;
-        return Ok(());
+        return update_localdb();
     } else if args.item.is_some() {
         match check_localtime() {
             Ok(_) => {}
@@ -61,16 +65,14 @@ fn real_main() -> Result<()> {
     }
 
     if let Some(path) = args.render {
-        print_localpage(path)?;
-        return Ok(());
+        return print_localpage(path);
     }
 
     if !has_localdb()? {
         update_localdb()?;
     }
     if args.list {
-        print_tldrlist(platform)?;
-        return Ok(());
+        return print_tldrlist(platform);
     }
 
     match args.item {
