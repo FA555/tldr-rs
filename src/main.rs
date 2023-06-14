@@ -57,11 +57,8 @@ fn real_main() -> Result<()> {
 
     if args.update {
         return update_localdb();
-    } else if args.item.is_some() {
-        match check_localtime() {
-            Ok(_) => {}
-            Err(_) => update_localdb()?,
-        }
+    } else if args.item.is_some() && check_localtime().is_err() {
+        update_localdb()?;
     }
 
     if let Some(path) = args.render {

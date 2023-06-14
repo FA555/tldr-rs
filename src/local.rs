@@ -30,7 +30,7 @@ pub fn check_localtime() -> Result<u64> {
     if diff_time > 60 * 60 * 24 * 7 * 2 {
         // older than 2 weeks
         println!(
-            "{}\n",
+            "{}",
             "Local data is older than two weeks, use --update to update it."
                 .bold()
                 .red()
