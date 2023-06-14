@@ -1,6 +1,6 @@
 [package]
 name = "tldr-rs"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 authors = ["fa_555 <fa_555@foxmail.com>"]
 repository = "https://github.com/FA555/tldr-rs"
